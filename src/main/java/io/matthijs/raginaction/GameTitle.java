@@ -1,0 +1,9 @@
+package io.matthijs.raginaction;
+
+public record GameTitle(String title) {
+
+    public String getNormalizedTitle() {
+        return title.toLowerCase().replace(" ", "_");
+    }
+
+}

@@ -1,56 +1,54 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.5.8'
-	id 'io.spring.dependency-management' version '1.1.7'
+    id 'java'
+    id 'org.springframework.boot' version '3.5.5'
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
-group = 'io.matthijs'
+group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-description = 'RAGinAction'
 
 java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(21)
-	}
+    sourceCompatibility = '21'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 ext {
-	springCloudVersion = '2025.0.0'
-	springFunctionsCatalogVersion = '5.1.0'
-	springAiVersion = "1.0.3"
-}
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
-	implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
-	implementation 'org.springframework.ai:spring-ai-starter-vector-store-qdrant'
-	implementation 'org.springframework.ai:spring-ai-tika-document-reader'
-	implementation 'org.springframework.cloud:spring-cloud-function-web'
-	implementation 'org.springframework.cloud.fn:spring-file-supplier'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    springCloudVersion = '2025.0.0'
+    springFunctionsCatalogVersion = '5.1.0'
+    springAiVersion = "1.0.3"
 }
 
 dependencyManagement {
-	imports {
-		mavenBom "org.springframework.cloud:" +
-				"spring-cloud-dependencies:" +
-				"$springCloudVersion"
-		mavenBom "org.springframework.cloud.fn:" +
-				"spring-functions-catalog-bom:" +
-				"$springFunctionsCatalogVersion"
-		mavenBom "org.springframework.ai:" +
-				"spring-ai-bom:" +
-				"$springAiVersion"
-	}
+    imports {
+        mavenBom "org.springframework.cloud:" +
+                "spring-cloud-dependencies:" +
+                "$springCloudVersion"
+        mavenBom "org.springframework.cloud.fn:" +
+                "spring-functions-catalog-bom:" +
+                "$springFunctionsCatalogVersion"
+        mavenBom "org.springframework.ai:" +
+                "spring-ai-bom:" +
+                "$springAiVersion"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-function-context'
+    implementation 'org.springframework.cloud.fn:spring-file-supplier'
+    implementation 'org.springframework.ai:spring-ai-tika-document-reader'
+    implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+    implementation(
+            'org.springframework.ai:spring-ai-starter-vector-store-qdrant')
+    implementation 'org.springframework.ai:spring-ai-advisors-vector-store'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
